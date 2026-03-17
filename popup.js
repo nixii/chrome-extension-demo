@@ -13,9 +13,9 @@
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   const tab = tabs[0];
 
-  // ── fill in the title and URL ─────────────────────────────
   // getElementById finds the element in popup.html with that id
   // and we set its text to the value we want to display
+  // uses chrome.tabs (set up in manifest file) to get title and url
 
   document.getElementById("page-title").textContent = tab.title;
   document.getElementById("page-url").textContent   = tab.url;
@@ -26,8 +26,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
   chrome.tabs.sendMessage(tab.id, { action: "getWordCount" }, function (response) {
 
-    // if the page couldn't be scanned (e.g. a Chrome system page)
-    // just show n/a and stop
+    // if the page couldn't be scanned, show n/a and stop
     if (!response) {
       document.getElementById("word-count").textContent = "n/a";
       document.getElementById("read-time").textContent  = "n/a";
@@ -42,12 +41,3 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
 });
 
-
-// ── flip button ───────────────────────────────────────────────
-// when clicked, send a "flip" message to content.js
-
-document.getElementById("btn-flip").addEventListener("click", function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, { action: "flip" });
-  });
-});
