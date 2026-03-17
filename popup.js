@@ -15,11 +15,13 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
   // getElementById finds the element in popup.html with that id
   // and we set its text to the value we want to display
-  // uses chrome.tabs (set up in manifest file) to get title and url
+  // uses chrome.tabs (set up in manifest file) to get title
 
   document.getElementById("page-title").textContent = tab.title;
-  document.getElementById("page-url").textContent   = tab.url;
 
+  // now do the same as the previous line to find the url
+  //***** FILL IN******
+    
   // ── ask content.js for the word count ────────────────────
   // sendMessage sends a message to content.js running on the page
   // content.js does the work and sends a response back
